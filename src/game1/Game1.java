@@ -12,13 +12,8 @@ public class Game1 {
         SlotMachine slotMachine = new SlotMachine();
         BlackJack blackJack = new BlackJack();
 
-        System.out.println("=================================");
-        System.out.println("게임장 1에 입장합니다.");
-        System.out.println("=================================");
-
         while (true) { 
             statusView.printStatus(player);
-            
             System.out.println("\n게임을 선택하세요.");
             System.out.println("1. 슬롯머신");
             System.out.println("2. 블랙잭");
