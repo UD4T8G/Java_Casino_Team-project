@@ -13,9 +13,11 @@ public class game2_main {
             return;
         }
 
+        System.out.println("\n미니게임 천국에 오신 것을 환영합니다!");
+        
         statusView.printStatus(u);
-        System.out.println("\n=================================");
-        System.out.println("미니게임 천국에 오신 것을 환영합니다!");
+        
+        System.out.println("\n게임을 선택하세요.");
         System.out.println("1. 말 달리기 경마 게임");
         System.out.println("2. 인생역전 로또 게임");
         System.out.println("3. 메인으로 돌아가기");
