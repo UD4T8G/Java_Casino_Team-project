@@ -17,13 +17,19 @@ public class EconomyManager {
 		
 		int ChargedCoin = MoneyForCoin / Scale; //환전
 		
+		if (u instanceof VIP_User) {
+			System.out.println("VIP혜택 1.2배로 인한 추가 코인을 획득하였습니다");
+			ChargedCoin += (MoneyForCoin / 50000); //1.2배의 효율을 줌
+		}
+		
 		ChargedCoin += u.getCoin(); //유저의 코인늘리기
 		u.setCoin(ChargedCoin);
-		
 		System.out.print("돈 -> 코인 환전완료");
 		
 
 	}
+	
+	
 	
 	void changeToMoney(User u) {
 		Scanner s = new Scanner(System.in);
