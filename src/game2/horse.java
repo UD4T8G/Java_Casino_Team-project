@@ -5,84 +5,102 @@ import java.util.Random;
 import java.util.Scanner;
 
 class run {
-	Random r = new Random();
-	int num = r.nextInt(10) + 1;
-	int sum = 0;
+    private static final int finish = 100;
+    private static final int track = 50;
 
-	int add() {
-		sum += num;
-		return sum;
-	}
+    Random r = new Random();
+    int sum = 0;
 
-	void anime() {
-		for (int i = 0; i < this.sum; i++) {
-			System.out.print("-");
-		}
-	}
+    int add() {
+        int num = r.nextInt(10) + 1;
+        sum += num;
+        return sum;
+    }
+
+    void anime(String horseName) {
+        int position = Math.min(track, sum * track / finish);
+        
+        System.out.print(horseName + " |");
+        for (int i = 0; i < track; i++) {
+            if (i == position) {
+                System.out.print("🐎");
+            } else {
+                System.out.print(".");
+            }
+        }
+        System.out.printf("| %3d/%d%n", sum, finish);
+    }
 }
 
 public class horse {
-	public void startHorseModule(User u, int initialCoin) {
-		Scanner scanner = new Scanner(System.in);
+    public void startHorseModule(User u) {
+        Scanner scanner = new Scanner(System.in);
 
-		if (initialCoin <= 0) {
-			System.out.print("코인 부족입니다");
-			return;
-		}
+        int currentCoin = u.getCoin();
 
-		run h1 = new run();
-		run h2 = new run();
-		run h3 = new run();
+        if (currentCoin <= 0) {
+            System.out.println("코인이 부족합니다! (현재 코인: " + currentCoin + ")");
+            return;
+        }
 
-		System.out.print("말 번호를 선택하세요(1~3): ");
-		int bet = scanner.nextInt();
-		int winner = 0;
+        run h1 = new run();
+        run h2 = new run();
+        run h3 = new run();
 
-		switch (bet) {
-		case 1:
-		case 2:
-		case 3:
-			while (true) {
-				h1.add();
-				h1.anime();
-				System.out.println("H1");
+        System.out.print("배팅할 말 번호를 선택하세요(1~3): ");
+        int bet = scanner.nextInt();
+        int winner = 0;
 
-				h2.add();
-				h2.anime();
-				System.out.println("H2");
+        switch (bet) {
+            case 1:
+            case 2:
+            case 3:
+                System.out.println("\n=== 경마 시작! ===");
+                while (true) {
+                    h1.add();
+                    h1.anime("H1");
 
-				h3.add();
-				h3.anime();
-				System.out.println("H3");
+                    h2.add();
+                    h2.anime("H2");
 
-				if (h1.sum >= 100) {
-					winner = 1;
-					break;
-				} else if (h2.sum >= 100) {
-					winner = 2;
-					break;
-				} else if (h3.sum >= 100) {
-					winner = 3;
-					break;
-				}
-			}
-			break;
+                    h3.add();
+                    h3.anime("H3");
 
-		default:
-			System.out.print("다시 입력하시오");
-			return;
-		}
+                    System.out.println("========================================================");
 
-		int result;
+                    if (h1.sum >= 100 || h2.sum >= 100 || h3.sum >= 100) {
+                        if (h1.sum >= h2.sum && h1.sum >= h3.sum) winner = 1;
+                        else if (h2.sum >= h1.sum && h2.sum >= h3.sum) winner = 2;
+                        else winner = 3;
+                        break;
+                    }
 
-		if (bet == winner) {
-			System.out.print("you win");
-			result = (int)(initialCoin * 1.2);
-		} else {
-			System.out.print("you lose");
-			result = (int)(initialCoin / 1.2);
-		}
+                    try {
+                        Thread.sleep(400);
+                    } catch (Exception e) {
+                    }
+                }
+                break;
 
-		u.setCoin(result);
-	}
+            default:
+                System.out.println("올바른 말 번호가 아닙니다. 게임을 종료합니다.");
+                return;
+        }
+
+        System.out.println("\n=== 게임 결과 ===");
+        System.out.println("우승말 H" + winner + " / 내가 배팅한 말 H" + bet);
+
+        int resultCoin;
+
+        if (bet == winner) {
+            System.out.println("축하합니다! 예측에 성공했습니다. (코인 20% 증가)");
+            resultCoin = (int)(currentCoin * 1.2);
+        } else {
+            System.out.println("아쉽게도 틀렸습니다. (코인 20% 감소)");
+            resultCoin = (int)(currentCoin / 1.2);
+        }
+
+        u.setCoin(resultCoin);
+        System.out.println("최종 보유 코인: " + u.getCoin());
+    }
 }

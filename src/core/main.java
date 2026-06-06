@@ -16,7 +16,7 @@ public class main {
 		
 		
 		
-		System.out.println("JAVA 게임장에 오신 걸 환영합니다!");
+		ArcadeUI.intro();
 		
 		System.out.print("유저 이름 입력 : ");
 		System.out.println();
@@ -36,15 +36,16 @@ public class main {
 		
 		if(VIP_Code == 2005) {
 			u = new VIP_User(name,money);
-			System.out.println("VIP께서 입장하셨습니다.");
+			ArcadeUI.vipEnter(); //vip 입장 출력
 		}else {
-			System.out.println("손님 한 분 입장하셨습니다.");
+			ArcadeUI.normalEnter(); //일반 입장 출력
 		}
 		
 		if (money == -67) {
 			// 입력받은 돈이 -67이면 다형성을 이용해 Admin_User 객체를 u에 대입
 			u = new Admin_User(name, money);
-			System.out.println("★ [시스템] 관리자 권한(Admin_User)이 활성화되었습니다. ★");
+
+			ArcadeUI.adminEnter();
 		} else if (VIP_Code == 2005){
 			// 그 외의 경우는 일반 User 객체를 생성
 			u = new VIP_User(name, money);
@@ -62,20 +63,25 @@ public class main {
 				break;
 			}
 			GM.status(u);
+			ArcadeUI.menu();
 			select = s.nextInt();
 			switch(select) {
 				case 1:
 					game1.start(u, s);
 					if(TM.debtTimeCheck(u) == 0) {
 						select = 7;
+						System.out.println("❗❗❗❗❗❗❗❗❗❗❗");
 						System.out.println("빚을 갚지 못했습니다 게임오버");
+						System.out.println("❗❗❗❗❗❗❗❗❗❗❗");
 					}
 					break;
 				case 2:
 					game2_main.start(u,s);
 					if(TM.debtTimeCheck(u) == 0) {
 						select = 7;
+						System.out.println("❗❗❗❗❗❗❗❗❗❗❗");
 						System.out.println("빚을 갚지 못했습니다 게임오버");
+						System.out.println("❗❗❗❗❗❗❗❗❗❗❗");
 					}
 					TM.debtTimeDown(u,1);
 					break;
@@ -103,10 +109,13 @@ public class main {
 				        
 				        int cheatMoney = s.nextInt(); 
 				        u.setMoney(cheatMoney); 
-				        
+				        System.out.println("☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️");
 				        System.out.println("치트 적용 완료! 현재 자산: " + u.getMoney() + "원");
+				        System.out.println("☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️");
 				    } else {
+				    	System.out.println("❗❗❗❗❗❗❗❗");
 				        System.out.println("치트 권한이 없습니다.");
+				        System.out.println("❗❗❗❗❗❗❗❗");
 				    }
 					break;
 				default:
@@ -115,7 +124,7 @@ public class main {
 			}
 		}
 		
-		System.out.print("게임오버");
+		ArcadeUI.gameOver(u);
 
 
 		
