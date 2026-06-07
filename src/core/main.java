@@ -14,6 +14,8 @@ public class main {
 		TimeManager TM = new TimeManager();
 		Game1 game1 = new Game1(); //태현이 메인
 		
+		
+		
 		ArcadeUI.intro();
 		
 		System.out.print("유저 이름 입력 : ");
@@ -23,6 +25,8 @@ public class main {
 		System.out.print("VIP이시라면 비밀번호 네자리를 입력해주세요 : ");
 		System.out.println();
 		int VIP_Code = s.nextInt();
+		
+		
 		
 		System.out.print("보유 현금 입력 : ");
 		System.out.println();
@@ -121,6 +125,9 @@ public class main {
 		}
 		
 		ArcadeUI.gameOver(u);
+
+
+		
 		
 		s.close();
 	}

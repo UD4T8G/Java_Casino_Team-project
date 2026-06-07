@@ -58,11 +58,11 @@ public class ArcadeUI {
 
         loadingBar();
 
-        type("🎮 JAVA GAME LAND에 오신 것을 환영합니다.",25);
+        type("🎮 JAVA PLAY YARD에 오신 것을 환영합니다.",25);
 
         System.out.println();
         System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        System.out.println("              부자가 되어 탈출하라!");
+        type("              1억을 만들어 탈출하라!",30);
         System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         System.out.println();
     }
@@ -101,29 +101,32 @@ public class ArcadeUI {
         System.out.println("■   ■  ■■■    ■     ■  ■■■■■  ■    ■");
 
         System.out.println();
-        type("관리자 권한 활성화",20);
+        type("관리자 권한 활성화",55);
         System.out.println();
     }
 
     public static void gameOver(User u) {
 
         System.out.println();
-
-        System.out.println("  ■■■■     ■   ■     ■ ■■■■■");
-        System.out.println(" ■    ■   ■ ■  ■■   ■■ ■    ");
-        System.out.println("■        ■   ■ ■ ■ ■ ■ ■    ");
-        System.out.println("■    ■■■ ■■■■■ ■  ■  ■ ■■■■■");
-        System.out.println(" ■   ■■  ■   ■ ■     ■ ■    ");
-        System.out.println("  ■■■ ■  ■   ■ ■     ■ ■■■■■");
+        
+          
+        type(" ███   ███  █   █ █████",5);
+        type("█     █   █ ██ ██ █    ",5);
+        type("█  ██ █████ █ █ █ ████",5);
+        type("█   █ █   █ █   █ █    ",5);
+        type(" ███  █   █ █   █ █████",5);
 
         System.out.println();
-
-        System.out.println("  ■■■   ■     ■ ■■■■■ ■■■■  ");
-        System.out.println(" ■   ■  ■     ■ ■     ■   ■ ");
-        System.out.println("■     ■ ■     ■ ■     ■■■■  ");
-        System.out.println("■     ■  ■   ■  ■■■■■ ■ ■   ");
-        System.out.println(" ■   ■    ■ ■   ■     ■  ■  ");
-        System.out.println("  ■■■      ■    ■■■■■ ■   ■ ");
+        
+         
+         
+        
+         
+        type(" ███  █   █ █████ ████  ",5);
+        type("█   █ █   █ █     █   █",5);
+        type("█   █ █   █ ████  ████ ",5);
+        type("█   █  █ █  █     █  █  ",5);
+        type(" ███    █   █████ █   █ ",5);
 
         System.out.println();
         
@@ -133,7 +136,24 @@ public class ArcadeUI {
         type("지금까지 대출한 빚 :", 100);
         System.out.printf(" %,d \n" , u.get_ending_debt());
         
-        type("카드 한 묶음은 악마의 기도가 적힌 책이다. - 영국 속담 ", 180);
+        if(u.getMoney() >= 100000000 && u.getDebt() <= 0) {
+        	type("당신은 무사히 "+u.getMoney()+"원을 들고 게임장을 빠져나갔습니다.", 50);
+        	
+        	type("█   █  ███  ████  ████  █   █    █████ █   █ ████               ███  ", 8);
+        	type("█   █ █   █ █   █ █   █  █ █     █     ██  █ █   █             █   █ ", 8);
+        	type("█████ █████ ████  ████    █      ████  █ █ █ █   █                █  ", 8);
+        	type("█   █ █   █ █     █       █      █     █  ██ █   █               █   ", 8);
+        	type("█   █ █   █ █     █       █      █████ █   █ ████   █   █   █    █   ", 8);
+        }else {
+        	type("\"카드 한 묶음은 악마의 기도가 적힌 책이다. \"- 영국 속담 ", 180);
+        	
+        	type("████   ███  ████     █████ █   █ ████  ", 8);
+        	type("█   █ █   █ █   █    █     ██  █ █   █ ", 8);
+        	type("████  █████ █   █    ████  █ █ █ █   █ ", 8);
+        	type("█   █ █   █ █   █    █     █  ██ █   █ ", 8);
+        	type("████  █   █ ████     █████ █   █ ████  ", 8);
+        }
+        
     }
 
     public static void menu() {

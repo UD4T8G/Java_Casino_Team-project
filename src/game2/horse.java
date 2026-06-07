@@ -5,8 +5,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 class run {
-    private static final int finish = 100;
-    private static final int track = 50;
+    private static final int FINISH = 100;
+    private static final int TRACK = 50;
 
     Random r = new Random();
     int sum = 0;
@@ -18,40 +18,33 @@ class run {
     }
 
     void anime(String horseName) {
-        int position = Math.min(track, sum * track / finish);
-        
+        int position = Math.min(TRACK, sum * TRACK / FINISH);
+
         System.out.print(horseName + " |");
-        for (int i = 0; i < track; i++) {
+        for (int i = 0; i < TRACK; i++) {
             if (i == position) {
-                System.out.print("🐎");
+                System.out.print(">");
             } else {
                 System.out.print(".");
             }
         }
-        System.out.printf("| %3d/%d%n", sum, finish);
+        System.out.printf("| %3d/%d%n", sum, FINISH);
     }
 }
 
 public class horse {
-    public void startHorseModule(User u) {
+    public void startHorseModule(User u, int betCoin) {
         Scanner scanner = new Scanner(System.in);
-
-        int currentCoin = u.getCoin();
-
-        if (currentCoin <= 0) {
-            System.out.println("코인이 부족합니다! (현재 코인: " + currentCoin + ")");
-            return;
-        }
 
         run h1 = new run();
         run h2 = new run();
         run h3 = new run();
 
-        System.out.print("배팅할 말 번호를 선택하세요(1~3): ");
-        int bet = scanner.nextInt();
+        System.out.print("베팅할 말 번호를 선택하세요(1~3): ");
+        int betHorse = scanner.nextInt();
         int winner = 0;
 
-        switch (bet) {
+        switch (betHorse) {
             case 1:
             case 2:
             case 3:
@@ -69,9 +62,13 @@ public class horse {
                     System.out.println("========================================================");
 
                     if (h1.sum >= 100 || h2.sum >= 100 || h3.sum >= 100) {
-                        if (h1.sum >= h2.sum && h1.sum >= h3.sum) winner = 1;
-                        else if (h2.sum >= h1.sum && h2.sum >= h3.sum) winner = 2;
-                        else winner = 3;
+                        if (h1.sum >= h2.sum && h1.sum >= h3.sum) {
+                            winner = 1;
+                        } else if (h2.sum >= h1.sum && h2.sum >= h3.sum) {
+                            winner = 2;
+                        } else {
+                            winner = 3;
+                        }
                         break;
                     }
 
@@ -88,19 +85,16 @@ public class horse {
         }
 
         System.out.println("\n=== 게임 결과 ===");
-        System.out.println("우승말 H" + winner + " / 내가 배팅한 말 H" + bet);
+        System.out.println("우승마: H" + winner + " / 내가 베팅한 말: H" + betHorse);
 
-        int resultCoin;
-
-        if (bet == winner) {
-            System.out.println("축하합니다! 예측에 성공했습니다. (코인 20% 증가)");
-            resultCoin = (int)(currentCoin * 1.2);
+        if (betHorse == winner) {
+            System.out.println("축하합니다! 예측에 성공했습니다. 베팅 코인의 2배를 돌려받습니다.");
+            u.setCoin(u.getCoin() - betCoin + (betCoin * 2));
         } else {
-            System.out.println("아쉽게도 틀렸습니다. (코인 20% 감소)");
-            resultCoin = (int)(currentCoin / 1.2);
+            System.out.println("아쉽게도 졌습니다. 베팅 코인을 잃었습니다.");
+            u.setCoin(u.getCoin() - betCoin);
         }
 
-        u.setCoin(resultCoin);
         System.out.println("최종 보유 코인: " + u.getCoin());
     }
 }
