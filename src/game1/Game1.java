@@ -12,9 +12,7 @@ public class Game1 {
         SlotMachine slotMachine = new SlotMachine();
         BlackJack blackJack = new BlackJack();
 
-        System.out.println("=================================");
-        System.out.println("게임장 1에 입장합니다.");
-        System.out.println("=================================");
+        System.out.println("\n스킬 이슈 지옥에 오신 것을 환영합니다!");
 
         while (true) { 
             statusView.printStatus(player);

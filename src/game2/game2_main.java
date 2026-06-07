@@ -1,18 +1,23 @@
 package game2;
 
-import core.User;
 import java.util.Scanner;
+import core.User;
+import core.StatusView;
+
 
 public class game2_main {
     public static void start(User u, Scanner scanner) {
+    	StatusView statusView = new StatusView();
         int userTotalCoin = u.getCoin();
         if (userTotalCoin <= 0) {
             System.out.println("보유하신 코인이 없습니다. 게임2를 이용할 수 없습니다.");
             return;
         }
 
-        System.out.println("\n=================================");
-        System.out.println("미니게임 천국에 오신 것을 환영합니다!");
+        System.out.println("\n미니게임 천국에 오신 것을 환영합니다!");
+        
+        statusView.printStatus(u);
+        
         System.out.println("1. 말 달리기 경마 게임");
         System.out.println("2. 인생역전 로또 게임");
         System.out.println("3. 메인으로 돌아가기");
