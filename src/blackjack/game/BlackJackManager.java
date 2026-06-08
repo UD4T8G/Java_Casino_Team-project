@@ -19,12 +19,41 @@ public class BlackJackManager {
                 return new BlackJackResult(BlackJackExitStatus.BANKRUPT, gamesPlayed, currentCoin);
             }
 
-            System.out.print("베팅할 코인을 입력하세요 (0 입력 시 테이블 떠나기): ");
+            System.out.print("베팅할 코인을 입력하세요 (0 입력 시 테이블 떠나기, - 입력 시 블랙잭 규칙 듣기): ");
             int betAmount;
             try {
                 betAmount = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("숫자를 입력해주세요.");
+	            String line = "==================================================\n";
+	            String subLine = "--------------------------------------------------\n";
+	
+	            System.out.print(line);
+	            System.out.print("           ♣ ◆ 블랙잭 게임 규칙 ♣ ◆            \n");
+	            System.out.print(line);
+	
+	            // 1. 핵심 목표
+	            System.out.print("[ 핵심 목표 ]\n");
+	            System.out.print(" 카드의 합이 '21'에 가장 가까운 사람이 승리합니다.\n");
+	            System.out.print(" 단, 21을 단 1점이라도 넘어가면 즉시 패배(Bust)합니다!\n\n");
+	
+	            // 2. 카드 계산법
+	            System.out.print("[ 카드 계산법 ]\n");
+	            System.out.print(" - 2 ~ 10     : 카드에 적힌 숫자 그대로 계산\n");
+	            System.out.print(" - K, Q, J    : 무조건 '10'으로 계산\n");
+	            System.out.print(" - A(에이스)   : 무조건 '11'로 계산\n\n");
+	            System.out.print(subLine); 
+	
+	            // 3. 게임 진행 방식
+	            System.out.print("[ 게임 진행 ]\n");
+	            System.out.print(" 1. 플레이어와 딜러는 각각 카드를 2장씩 받습니다.\n");
+	            System.out.print(" 2. 플레이어의 선택 (Hit or Stand):\n");
+	            System.out.print("    - 힛(Hit)   : 카드를 1장 더 받음\n");
+	            System.out.print("    - 스탠드(Stand) : 카드를 더 받지 않고 차례를 마침\n");
+	            System.out.print(" 3. 딜러의 규칙:\n");
+	            System.out.print("    - 카드 합이 16점 이하이면 무조건 1장 더 받아야 함\n");
+	            System.out.print("    - 카드 합이 17점 이상이면 무조건 멈춰야 함\n\n");
+	            System.out.print(subLine);
+	            System.out.print(line);
                 continue;
             }
 
@@ -32,7 +61,7 @@ public class BlackJackManager {
                 System.out.println("블랙잭에서 퇴장합니다.");
                 return new BlackJackResult(BlackJackExitStatus.USER_EXIT, gamesPlayed, currentCoin);
             }
-
+            
             if (betAmount < 0 || betAmount > currentCoin) {
                 System.out.println("코인이 부족하거나 잘못된 입력입니다.");
                 continue;
